@@ -1,0 +1,172 @@
+{
+	"folders": {},
+	"connections": {
+		"h2_embedded_v2-1846f3a4513-3f673be40d4a95a5": {
+			"provider": "h2",
+			"driver": "h2_embedded_v2",
+			"name": "recipes",
+			"save-password": true,
+			"navigator-show-only-entities": true,
+			"navigator-hide-folders": true,
+			"navigator-hide-virtual": true,
+			"read-only": false,
+			"configuration": {
+				"database": "tcp://server/~/recipes",
+				"url": "jdbc:h2:tcp://server:9092//home/craig/recipes",
+				"configurationType": "URL",
+				"type": "dev",
+				"auth-model": "native"
+			},
+			"custom-properties": {
+				"SQLEditor.beepOnQueryEnd": "true",
+				"database.meta.separate.connection": "NEVER"
+			}
+		}
+	},
+	"virtual-models": {
+		"h2_embedded_v2-1846f3a4513-3f673be40d4a95a5": {
+			"PUBLIC": {
+				"@properties": {
+					"erd.diagram.state": {
+						"serialized": "\u003cdiagram version\u003d\"1\" name\u003d\"empty\" time\u003d\"202211132211\"\u003e\u003centities\u003e\u003cdata-source id\u003d\"h2_embedded_v2-1846f3a4513-3f673be40d4a95a5\"\u003e\u003centity id\u003d\"1\" name\u003d\"RECIPE_IMAGE_RECIPES\" fq-name\u003d\"PUBLIC.RECIPE_IMAGE_RECIPES\" order\u003d\"0\" x\u003d\"160\" y\u003d\"400\"\u003e\u003cpath name\u003d\"PUBLIC\"/\u003e\u003c/entity\u003e\u003centity id\u003d\"2\" name\u003d\"RECIPE_IMAGES\" fq-name\u003d\"PUBLIC.RECIPE_IMAGES\" order\u003d\"1\" x\u003d\"80\" y\u003d\"60\"\u003e\u003cpath name\u003d\"PUBLIC\"/\u003e\u003c/entity\u003e\u003centity id\u003d\"3\" name\u003d\"RECIPES\" fq-name\u003d\"PUBLIC.RECIPES\" order\u003d\"2\" x\u003d\"960\" y\u003d\"60\"\u003e\u003cpath name\u003d\"PUBLIC\"/\u003e\u003c/entity\u003e\u003centity id\u003d\"4\" name\u003d\"TAG_RECIPES\" fq-name\u003d\"PUBLIC.TAG_RECIPES\" order\u003d\"3\" x\u003d\"600\" y\u003d\"620\"\u003e\u003cpath name\u003d\"PUBLIC\"/\u003e\u003c/entity\u003e\u003centity id\u003d\"5\" name\u003d\"TAGS\" fq-name\u003d\"PUBLIC.TAGS\" order\u003d\"4\" x\u003d\"1140\" y\u003d\"400\"\u003e\u003cpath name\u003d\"PUBLIC\"/\u003e\u003c/entity\u003e\u003c/data-source\u003e\u003c/entities\u003e\u003crelations\u003e\u003crelation name\u003d\"CONSTRAINT_6B\" fq-name\u003d\"PUBLIC.RECIPES.CONSTRAINT_6B\" type\u003d\"fk\" pk-ref\u003d\"2\" fk-ref\u003d\"3\"/\u003e\u003crelation name\u003d\"vfk_RECIPE_IMAGES_RECIPE_IMAGE_RECIPES\" type\u003d\"vfk\" pk-ref\u003d\"2\" fk-ref\u003d\"1\"/\u003e\u003crelation name\u003d\"vfk_RECIPES_TAG_RECIPES\" type\u003d\"vfk\" pk-ref\u003d\"3\" fk-ref\u003d\"4\"/\u003e\u003crelation name\u003d\"vfk_RECIPES_RECIPE_IMAGE_RECIPES\" type\u003d\"vfk\" pk-ref\u003d\"3\" fk-ref\u003d\"1\"/\u003e\u003crelation name\u003d\"CONSTRAINT_6B4\" fq-name\u003d\"PUBLIC.RECIPES.CONSTRAINT_6B4\" type\u003d\"fk\" pk-ref\u003d\"5\" fk-ref\u003d\"3\"/\u003e\u003crelation name\u003d\"vfk_TAGS_TAG_RECIPES\" type\u003d\"vfk\" pk-ref\u003d\"5\" fk-ref\u003d\"4\"/\u003e\u003c/relations\u003e\u003c/diagram\u003e"
+					}
+				},
+				":RECIPE": {
+					"foreign-keys": [
+						{
+							"entity": "database://h2_embedded_v2-1846f3a4513-3f673be40d4a95a5/PUBLIC/TAG_RECIPE",
+							"constraint": "CONSTRAINT_C",
+							"attributes": {
+								"ID": "RECIPE_ID",
+								"TAG_ID": "TAG_ID"
+							}
+						},
+						{
+							"entity": "database://h2_embedded_v2-1846f3a4513-3f673be40d4a95a5/PUBLIC/RECIPE_IMAGE_RECIPE",
+							"constraint": "VIRTUAL_PK",
+							"attributes": {
+								"ID": "RECIPE_ID"
+							}
+						}
+					]
+				},
+				":TAG": {
+					"foreign-keys": [
+						{
+							"entity": "database://h2_embedded_v2-1846f3a4513-3f673be40d4a95a5/PUBLIC/TAG_RECIPE",
+							"constraint": "VIRTUAL_PK",
+							"attributes": {
+								"ID": "TAG_ID"
+							}
+						}
+					]
+				},
+				":TAG_RECIPE": {
+					"constraints": {
+						"VIRTUAL_PK": {
+							"type": "vpk",
+							"attributes": [
+								"TAG_ID"
+							]
+						}
+					}
+				},
+				":RECIPE_IMAGE_RECIPE": {
+					"constraints": {
+						"VIRTUAL_PK": {
+							"type": "vpk",
+							"attributes": [
+								"RECIPE_ID",
+								"RECIPE_IMAGE_ID"
+							]
+						}
+					}
+				},
+				":RECIPE_IMAGE": {
+					"foreign-keys": [
+						{
+							"entity": "database://h2_embedded_v2-1846f3a4513-3f673be40d4a95a5/PUBLIC/RECIPE_IMAGE_RECIPE",
+							"constraint": "VIRTUAL_PK",
+							"attributes": {
+								"ID": "RECIPE_IMAGE_ID"
+							}
+						}
+					]
+				},
+				":TAGS": {
+					"foreign-keys": [
+						{
+							"entity": "database://h2_embedded_v2-1846f3a4513-3f673be40d4a95a5/PUBLIC/TAG_RECIPES",
+							"constraint": "VIRTUAL_PK",
+							"attributes": {
+								"ID": "TAG_ID"
+							}
+						}
+					]
+				},
+				":TAG_RECIPES": {
+					"constraints": {
+						"VIRTUAL_PK": {
+							"type": "vpk",
+							"attributes": [
+								"TAG_ID",
+								"RECIPES_ID"
+							]
+						}
+					}
+				},
+				":RECIPES": {
+					"foreign-keys": [
+						{
+							"entity": "database://h2_embedded_v2-1846f3a4513-3f673be40d4a95a5/PUBLIC/TAG_RECIPES",
+							"constraint": "VIRTUAL_PK",
+							"attributes": {
+								"ID": "RECIPES_ID"
+							}
+						},
+						{
+							"entity": "database://h2_embedded_v2-1846f3a4513-3f673be40d4a95a5/PUBLIC/RECIPE_IMAGE_RECIPES",
+							"constraint": "VIRTUAL_PK",
+							"attributes": {
+								"ID": "RECIPES_ID"
+							}
+						}
+					]
+				},
+				":RECIPE_IMAGES": {
+					"foreign-keys": [
+						{
+							"entity": "database://h2_embedded_v2-1846f3a4513-3f673be40d4a95a5/PUBLIC/RECIPE_IMAGE_RECIPES",
+							"constraint": "VIRTUAL_PK",
+							"attributes": {
+								"ID": "RECIPE_IMAGE_ID"
+							}
+						}
+					]
+				},
+				":RECIPE_IMAGE_RECIPES": {
+					"constraints": {
+						"VIRTUAL_PK": {
+							"type": "vpk",
+							"attributes": [
+								"RECIPE_IMAGE_ID",
+								"RECIPES_ID"
+							]
+						}
+					}
+				}
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"auto-close-transactions": false
+		}
+	}
+}

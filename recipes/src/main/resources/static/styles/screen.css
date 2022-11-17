@@ -1,0 +1,151 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: "decker";
+	src: url(../fonts/Decker.ttf) format("truetype");
+}
+
+@font-face {
+	font-family: "coneria";
+	src: url(../fonts/ConeriaScript.ttf) format("truetype");
+}
+
+html, body {
+	height: 100%;
+}
+
+body {
+	font-family: "arial";
+	font-size: 24px;
+	padding-right: 50px;
+	background-color: #a5bfa5 !important;
+}
+
+nav {
+	background-color: #805c80 !important;
+}
+
+.title {
+	font-family: "coneria";
+	font-weight: bolder;
+	font-size: 48px !important;
+	color: #80805c !important;
+	padding: 20px;
+}
+
+.active {
+	background-color: Purple;
+}
+
+li {
+	margin: 10px 0 10px 0;
+}
+
+nav li {
+	margin: 30px 30px 30px 0;
+	padding: 5px !important;
+	text-align: center;
+}
+
+nav a {
+	color: white !important;
+	font-family: "decker";
+	text-decoration: none;
+}
+
+nav a:hover {
+	color: white !important;
+	transition: 1s ease;
+	text-decoration: none;
+}
+
+nav a:visited {
+	color: #9d9d9d;
+	text-decoration: none;
+}
+
+nav a:focus {
+	color: white;
+	outline: none;
+	text-decoration: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+.toLower {
+	text-transform: lowercase;
+}
+
+.center {
+	text-align: center;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.inline {
+	display: inline;
+}
+
+ul.no-bullet {
+	list-style: none;
+}
+
+.float-right {
+	float: right;
+}
+
+.error {
+	color: red;
+}
+
+.padded20 {
+	padding: 20px;
+}
+
+.padded5 {
+	padding: 5px;
+}
+
+.sidebar {
+	display: block;
+	background-color: #805c80 !important;
+	width: 200px;
+	height: 100%;
+	border-right: 10px solid #80805c;
+}
+
+.label {
+	color: #80805c;
+	font-style: italic;
+	font-weight: bolder;
+}
+
+input, textarea {
+	font-size: x-large !important;
+}
+
+section {
+	padding: 10px;
+}
+
+.border {
+	margin: 10px;
+	border: 5px solid #80805c !important;
+}
+
+.bold {
+	font-weight: bolder;
+}
+
+hr {
+	color: #80805c;
+	border-top-width: 10px;
+}
+
+.rounded {
+	border-radius: 20px !important;
+}
+

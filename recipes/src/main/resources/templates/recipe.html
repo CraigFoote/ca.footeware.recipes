@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+</head>
+<body>
+	<nav class="navbar fixed-top sidebar">
+		<ul class="me-auto mb-2 mb-lg-0">
+			<li class="nav-link"><a href="/">Home</a></li>
+			<li class="nav-link"><a href="/search">Search</a></li>
+			<li class="nav-link"><a href="/add">Add a Recipe</a></li>
+		</ul>
+	</nav>
+	<section class="container-sm">
+		<h2 class="center title" th:text="${name}"></h2>
+		<div style="text-align: left; padding-left: 10%">
+			<p>
+				<span th:each="tag : ${tags}" class="border padded5 rounded"><a
+					th:text="${tag}" th:href="@{/tags/{tag}(tag=${tag})}"></a></span>
+			</p>
+			<p th:utext="${body}"
+				style="background-color: cornsilk; padding: 5px; border: 5px solid #80805c"></p>
+			<div style="padding-top: 25px;">
+				<img th:each="encodedImage : ${images}"
+					th:src="${'data:image/jpeg;charset=ascii;base64,' + encodedImage}"
+					alt="image" />
+			</div>
+		</div>
+	</section>
+</body>
+</html>
