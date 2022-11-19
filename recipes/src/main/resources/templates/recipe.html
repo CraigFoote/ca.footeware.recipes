@@ -6,6 +6,8 @@
 </head>
 <body>
 	<nav class="navbar fixed-top sidebar">
+		<img src="/images/rose.png" alt="rose"
+			title="Annie Foote's Recipe Book" />
 		<ul class="me-auto mb-2 mb-lg-0">
 			<li class="nav-link"><a href="/">Home</a></li>
 			<li class="nav-link"><a href="/search">Search</a></li>
@@ -29,12 +31,7 @@
 					th:src="${'data:image/jpeg;charset=ascii;base64,' + encodedImage}"
 					alt="image" style="width: 100%" />
 			</div>
-<!-- 			<div sec:authorize="hasRole('ADMIN')" style="text-align: right;"> -->
-<!-- 				<a th:href="@{/edit/{id}(id=${id})}" title="edit"><img -->
-<!-- 					src="/images/edit.png" alt="edit" /></a> <img src="/images/delete.png" -->
-<!-- 					title="delete" alt="delete" class="link" -->
-<!-- 					th:onclick="deleteById([[${name}]], [[${id}]])" /> -->
-<!-- 			</div> -->
+			<!--  sec:authorize="hasRole('ADMIN')" -->
 			<div style="text-align: right;">
 				<a th:href="@{/edit/{id}(id=${id})}" title="edit"><img
 					src="/images/edit.png" alt="edit" /></a> <img src="/images/delete.png"
