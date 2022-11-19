@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head th:replace="fragments/head :: head">
 </head>
 <body>
@@ -27,6 +29,12 @@
 					th:src="${'data:image/jpeg;charset=ascii;base64,' + encodedImage}"
 					alt="image" style="width: 100%" />
 			</div>
+<!-- 			<div sec:authorize="hasRole('ADMIN')" style="text-align: right;"> -->
+<!-- 				<a th:href="@{/edit/{id}(id=${id})}" title="edit"><img -->
+<!-- 					src="/images/edit.png" alt="edit" /></a> <img src="/images/delete.png" -->
+<!-- 					title="delete" alt="delete" class="link" -->
+<!-- 					th:onclick="deleteById([[${name}]], [[${id}]])" /> -->
+<!-- 			</div> -->
 			<div style="text-align: right;">
 				<a th:href="@{/edit/{id}(id=${id})}" title="edit"><img
 					src="/images/edit.png" alt="edit" /></a> <img src="/images/delete.png"

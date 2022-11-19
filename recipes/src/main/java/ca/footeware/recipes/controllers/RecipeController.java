@@ -245,4 +245,9 @@ public class RecipeController {
 		return redirectView;
 	}
 
+//	@GetMapping("/login")
+//	public String viewLoginPage() {
+//		return "login";
+//	}
+
 }
