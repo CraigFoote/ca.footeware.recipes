@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+</head>
+<body>
+	<nav class="navbar fixed-top sidebar">
+		<ul class="me-auto mb-2 mb-lg-0">
+			<li class="nav-link"><a href="/">Home</a></li>
+			<li class="nav-link"><a href="/search">Search</a></li>
+			<li class="nav-link"><a href="/browse">Browse</a></li>
+			<li class="nav-link"><a href="/add">Add a Recipe</a></li>
+		</ul>
+	</nav>
+	<div class="container center mainPanel">
+		<h2 class="center title">Edit</h2>
+		<div style="text-align: left; padding-left: 10%">
+			<ol>
+				<li class="padded20">
+					<form method="POST" enctype="multipart/form-data"
+						action="/uploadImage">
+						<input th:if="${id} != null" type="hidden" th:name="pageName"
+							th:value="'edit/'+${id}" /> <input th:if="${id} == null"
+							type="hidden" name="pageName" th:value="edit" />
+						<p>
+							Upload image(s) for recipe (optional).<br />Hold CTRL key to
+							select multiples.
+						</p>
+						<p>
+							<input type="file" name="files" multiple="multiple"
+								accept="image/png, image/jpeg, image/jpg, image/bmp" />
+						</p>
+						<p>
+							...and:&nbsp;<input type="submit" value="Upload" />
+						</p>
+						<p>Or just click Upload to clear any chosen images.</p>
+					</form>
+					<div th:each="encodedImage : ${encodedImages}">
+						<img
+							th:src="${'data:image/jpeg;charset=ascii;base64,' + encodedImage}"
+							width="100%" />
+					</div>
+				</li>
+				<form method="POST" action="/edit" id="recipeform">
+					<input type="hidden" th:each="encodedImage : ${encodedImages}"
+						name="encodedImages" th:value="${encodedImage}" /> <input
+						type="hidden" name="id" th:value="${id}" />
+					<li class="padded20"><input name="recipeName" type="text"
+						th:value="${name}" class="form-control" required="required"
+						placeholder="Recipe Name" /></li>
+					<li class="padded20"><textarea name="recipeText" wrap="hard"
+							class="form-control" form="recipeform" placeholder="Recipe Text"
+							rows="10" th:utext="${body}" required="required"></textarea></li>
+					<li class="padded20"><p>Add comma-separated descriptive
+							tags to help searching.</p> <input name="tags" type="text"
+						class="form-control" required="required" th:value="${tags}"
+						placeholder="Comma-separated Tags, e.g. 'chocolate, cookies'" /></li>
+					<input class="center" type="submit" value="Save" />
+				</form>
+			</ol>
+		</div>
+	</div>
+</body>
+</html>

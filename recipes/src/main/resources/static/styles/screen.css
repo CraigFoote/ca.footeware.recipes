@@ -110,11 +110,17 @@ ul.no-bullet {
 }
 
 .sidebar {
-	display: block;
+	display: inline-block;
 	background-color: #805c80 !important;
-	width: 200px;
+	width: 150px;
 	height: 100%;
-	border-right: 10px solid #80805c;
+	border-right: 5px solid #80805c;
+}
+
+.mainPanel {
+	width: 100%;
+	padding-left: 150px;
+	display: block;
 }
 
 .label {
@@ -149,3 +155,6 @@ hr {
 	border-radius: 20px !important;
 }
 
+.link {
+	cursor: pointer;
+}

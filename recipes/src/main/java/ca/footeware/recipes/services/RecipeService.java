@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package ca.footeware.recipes.services;
 
@@ -22,18 +22,25 @@ public class RecipeService {
 	private RecipeRepository repository;
 
 	/**
-	 * @param recipe
+	 * @param id
 	 */
-	public Recipe save(Recipe recipe) {
-		return repository.save(recipe);
+	public void delete(Integer id) {
+		repository.deleteById(id);
 	}
 
-	public Set<Recipe> findByTag(String term) {
-		return repository.findByTagsContainingIgnoreCase(term);
+	/**
+	 * @return
+	 */
+	public Iterable<Recipe> findAll() {
+		return repository.findAll();
 	}
 
 	public Set<Recipe> findByName(String term) {
 		return repository.findByNameContainingIgnoreCase(term);
+	}
+
+	public Set<Recipe> findByTag(String term) {
+		return repository.findByTagsContainingIgnoreCase(term);
 	}
 
 	/**
@@ -44,6 +51,17 @@ public class RecipeService {
 			return repository.findById(id).get();
 		}
 		throw new IllegalArgumentException("No recipe found with id=" + id);
+	}
+
+	/**
+	 * @param recipe
+	 */
+	public Recipe save(Recipe recipe) {
+		return repository.save(recipe);
+	}
+
+	public Recipe update(Recipe recipe) {
+		return repository.save(recipe);
 	}
 
 }

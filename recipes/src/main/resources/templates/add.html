@@ -5,10 +5,11 @@
 		<ul class="me-auto mb-2 mb-lg-0">
 			<li class="nav-link"><a href="/">Home</a></li>
 			<li class="nav-link"><a href="/search">Search</a></li>
+			<li class="nav-link"><a href="/browse">Browse</a></li>
 			<li class="nav-link active"><a href="/add">Add a Recipe</a></li>
 		</ul>
 	</nav>
-	<div style="margin-left: 210px;">
+	<div class="container center mainPanel">
 		<h2 class="center title">Add a Recipe</h2>
 		<div class="center">
 			<div style="text-align: left; padding-left: 10%">
@@ -17,9 +18,10 @@
 					<li class="padded20">
 						<form method="POST" enctype="multipart/form-data"
 							action="/uploadImage">
-							<input type="hidden" th:name="${_csrf.parameterName}"
-								th:value="${_csrf.token}" />
-							<p>Upload image(s) for recipe (optional).</p>
+							<input type="hidden" th:name="pageName" value="add" />
+							<p>Upload image(s) for recipe (optional).<br />Hold CTRL key to
+								select multiples.
+							</p>
 							<p>
 								<input type="file" name="files" multiple="multiple"
 									accept="image/png, image/jpeg, image/jpg, image/bmp" />
@@ -27,19 +29,17 @@
 							<p>
 								...and:&nbsp;<input type="submit" value="Upload" />
 							</p>
+							<p>Or just click Upload to clear any chosen images.</p>
 						</form>
-						<div th:if="${encodedImages}"
-							th:each="encodedImage : ${encodedImages}">
+						<div th:each="encodedImage : ${encodedImages}">
 							<img
 								th:src="${'data:image/jpeg;charset=ascii;base64,' + encodedImage}"
-								width="50%" />
+								width="100%" />
 						</div>
 					</li>
 					<form method="POST" action="/create" id="recipeform">
-						<input type="hidden" th:name="${_csrf.parameterName}"
-							th:value="${_csrf.token}" /> <input type="hidden"
-							th:each="encodedImage : ${encodedImages}" th:name="images"
-							th:value="${encodedImage}" />
+						<input type="hidden" th:each="encodedImage : ${encodedImages}"
+							th:name="images" th:value="${encodedImage}" />
 						<li class="padded20"><input name="recipeName" type="text"
 							class="form-control" required="required"
 							placeholder="Recipe Name" /></li>
@@ -47,7 +47,7 @@
 								cols="20" style="white-space: pre-line" class="form-control"
 								form="recipeform" placeholder="Recipe Text" rows="10"
 								required="required"></textarea></li>
-						<li class="padded20"><p>Add descriptive tags to help
+						<li class="padded20"><p>Add comma-separated descriptive tags to help
 								searching.</p> <input name="tags" type="text" class="form-control"
 							required="required"
 							placeholder="Comma-separated Tags, e.g. 'chocolate, cookies'" /></li>

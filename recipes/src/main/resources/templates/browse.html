@@ -1,0 +1,25 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+<body>
+	<nav class="navbar fixed-top sidebar">
+		<ul class="me-auto mb-2 mb-lg-0">
+			<li class="nav-link"><a href="/">Home</a></li>
+			<li class="nav-link"><a href="/search">Search</a></li>
+			<li class="nav-link active"><a href="/browse">Browse</a></li>
+			<li class="nav-link"><a href="/add">Add a Recipe</a></li>
+		</ul>
+	</nav>
+	<div class="container center mainPanel">
+		<h2 class="title center">Browse</h2>
+		<section class="col col-sm-12 center">
+			<hr />
+			<ol>
+				<li th:each="mapEntry : ${recipes}" style="text-align: left"><a
+					th:href="@{/recipes/{id}(id=${mapEntry.key})}"><span
+						th:text="${mapEntry.value}"></span></a></li>
+			</ol>
+			<hr />
+		</section>
+	</div>
+</body>
+</html>

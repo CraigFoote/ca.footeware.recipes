@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package ca.footeware.recipes.repositories;
 
@@ -16,19 +16,19 @@ import ca.footeware.recipes.models.Recipe;
 public interface RecipeRepository extends CrudRepository<Recipe, Integer> {
 
 	/**
-	 * Find all recipes with tag matching provided search term.
-	 * 
-	 * @param term {@link String}
-	 * @return {@link Set} of {@link Recipe}
-	 */
-	Set<Recipe> findByTagsContainingIgnoreCase(String term);
-
-	/**
 	 * Find all recipes with name matching provided search term.
-	 * 
+	 *
 	 * @param term {@link String}
 	 * @return {@link Set} of {@link Recipe}
 	 */
 	Set<Recipe> findByNameContainingIgnoreCase(String term);
+
+	/**
+	 * Find all recipes with tag matching provided search term.
+	 *
+	 * @param term {@link String}
+	 * @return {@link Set} of {@link Recipe}
+	 */
+	Set<Recipe> findByTagsContainingIgnoreCase(String term);
 
 }

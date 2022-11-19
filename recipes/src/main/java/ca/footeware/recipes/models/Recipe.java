@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package ca.footeware.recipes.models;
 
@@ -15,12 +15,12 @@ import javax.persistence.Id;
 @Entity
 public class Recipe implements Comparable<Recipe> {
 
+	private String body;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String name;
-	private String body;
 	private String images;
+	private String name;
 	private String tags;
 
 	public Recipe() {
@@ -33,44 +33,44 @@ public class Recipe implements Comparable<Recipe> {
 		this.tags = tags;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	@Override
+	public int compareTo(Recipe o) {
+		return name.compareTo(o.getName());
 	}
 
 	public String getBody() {
 		return body;
 	}
 
-	public void setBody(String body) {
-		this.body = body;
+	public int getId() {
+		return id;
 	}
 
 	public String getImages() {
 		return images;
 	}
 
-	public void setImages(String images) {
-		this.images = images;
-	}
-
-	public int getId() {
-		return id;
+	public String getName() {
+		return name;
 	}
 
 	public String getTags() {
 		return tags;
 	}
 
-	public void setTags(String tags) {
-		this.tags = tags;
+	public void setBody(String body) {
+		this.body = body;
 	}
 
-	@Override
-	public int compareTo(Recipe o) {
-		return name.compareTo(o.getName());
+	public void setImages(String images) {
+		this.images = images;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
 }

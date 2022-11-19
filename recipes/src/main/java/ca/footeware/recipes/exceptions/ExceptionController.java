@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package ca.footeware.recipes.exceptions;
 
@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
  */
 @ControllerAdvice
 public class ExceptionController {
-	
+
 	public static final String ERROR = "error";
 
 	@ExceptionHandler(value = org.springframework.web.multipart.MaxUploadSizeExceededException.class)
@@ -44,7 +44,7 @@ public class ExceptionController {
 		model.addAttribute("trace", extractTraces(t.getStackTrace()));
 		return ERROR;
 	}
-	
+
 	private String extractTraces(StackTraceElement[] stackTrace) {
 		StringBuilder buffer = new StringBuilder();
 		for (StackTraceElement stackTraceElement : stackTrace) {
