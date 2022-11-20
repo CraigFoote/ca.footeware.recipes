@@ -211,7 +211,7 @@ public class RecipeController {
 			}
 		}
 		model.addAttribute("encodedImages", imagesList);
-		return "/edit";
+		return "edit";
 	}
 
 	/**
