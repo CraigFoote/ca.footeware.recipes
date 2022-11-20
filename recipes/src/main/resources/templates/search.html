@@ -1,18 +1,28 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <head th:replace="fragments/head :: head">
 <body>
-	<nav class="navbar fixed-top sidebar">
-		<img src="/images/rose.png" alt="rose"
-			title="Annie Foote's Recipe Book" />
-		<ul class="me-auto mb-2 mb-lg-0">
-			<li class="nav-link"><a href="/">Home</a></li>
-			<li class="nav-link active"><a href="/search">Search</a></li>
-			<li class="nav-link"><a href="/browse">Browse</a></li>
-			<li class="nav-link"><a href="/add">Add a Recipe</a></li>
-		</ul>
+	<nav
+		class="navbar navbar-expand-sm fixed-top navbar-light bg-light nav-background nav-bottom">
+		<div class="container-fluid">
+			<div class="title green">Annie Foote's Recipe Book</div>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+				aria-controls="navbarNavAltMarkup" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav" style="padding-left: 25px;">
+					<a href="/" class="nav-link">Home</a> <a href="/search"
+						class="nav-link active" aria-current="page">Search</a> <a
+						href="/browse" class="nav-link">Browse</a> <a href="/add"
+						class="nav-link">Add a Recipe</a>
+				</div>
+			</div>
+		</div>
 	</nav>
-	<div class="container center mainPanel">
-		<h2 class="title center">Search</h2>
+	<div class="container padded-top">
+		<h1 class="center green">Search</h1>
 		<section class="col col-sm-12 center">
 			<form action="/search" method="POST">
 				<div class="input-group">
@@ -26,7 +36,7 @@
 			</form>
 		</section>
 		<div th:if="${recipes}">
-			<p class="bold">
+			<p>
 				<span th:text="${#maps.size(recipes)}"></span><span>&nbsp;result(s)
 					matching '</span><span th:text="${searchTerm}"></span><span>'.</span>
 			</p>

@@ -3,23 +3,32 @@
 <head th:replace="fragments/head :: head">
 </head>
 <body>
-	<nav class="navbar fixed-top sidebar">
-		<img src="/images/rose.png" alt="rose"
-			title="Annie Foote's Recipe Book" />
-		<ul class="me-auto mb-2 mb-lg-0">
-			<li class="nav-link active"><a href="/">Home</a></li>
-			<li class="nav-link"><a href="/search">Search</a></li>
-			<li class="nav-link"><a href="/browse">Browse</a></li>
-			<li class="nav-link"><a href="/add">Add a Recipe</a></li>
-		</ul>
+	<nav
+		class="navbar navbar-expand-sm fixed-top navbar-light bg-light nav-background nav-bottom">
+		<div class="container-fluid">
+			<div class="title green">Annie Foote's Recipe Book</div>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+				aria-controls="navbarNavAltMarkup" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav" style="padding-left: 25px;">
+					<a href="/" class="nav-link active" aria-current="page">Home</a> <a
+						href="/search" class="nav-link">Search</a> <a href="/browse"
+						class="nav-link">Browse</a> <a href="/add" class="nav-link">Add
+						a Recipe</a>
+				</div>
+			</div>
+		</div>
 	</nav>
-	<div class="container center mainPanel">
-		<h2 class="title">Annie Foote's Recipe Book</h2>
-		<section>
-			<p>Dedicated to all the wonderful meals lovingly prepared by this
-				wonderful woman.</p>
+	<div class="container padded-top">
+		<div class="center">
+			<h2 class="padded20 green">Dedicated to all the wonderful meals
+				lovingly prepared by this wonderful woman.</h2>
 			<img width="70%" src="images/dsc_1595.jpg" class="border" />
-		</section>
+		</div>
 	</div>
 </body>
 </html>

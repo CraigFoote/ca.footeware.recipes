@@ -5,25 +5,35 @@
 <head th:replace="fragments/head :: head">
 </head>
 <body>
-	<nav class="navbar fixed-top sidebar">
-		<img src="/images/rose.png" alt="rose"
-			title="Annie Foote's Recipe Book" />
-		<ul class="me-auto mb-2 mb-lg-0">
-			<li class="nav-link"><a href="/">Home</a></li>
-			<li class="nav-link"><a href="/search">Search</a></li>
-			<li class="nav-link"><a href="/browse">Browse</a></li>
-			<li class="nav-link"><a href="/add">Add a Recipe</a></li>
-		</ul>
+	<nav
+		class="navbar navbar-expand-sm fixed-top navbar-light bg-light nav-background nav-bottom">
+		<div class="container-fluid">
+			<div class="title green">Annie Foote's Recipe Book</div>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+				aria-controls="navbarNavAltMarkup" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav" style="padding-left: 25px;">
+					<a href="/" class="nav-link">Home</a> <a href="/search"
+						class="nav-link">Search</a> <a href="/browse" class="nav-link">Browse</a>
+					<a href="/add" class="nav-link">Add a Recipe</a>
+				</div>
+			</div>
+		</div>
 	</nav>
-	<div class="container center mainPanel">
-		<h2 class="center title" th:text="${name}"></h2>
-		<div style="text-align: left; padding-left: 10%">
-			<p>
-				<span th:each="tag : ${tags}" class="border padded5 rounded"><a
-					th:text="${tag}" th:href="@{/tags/{tag}(tag=${tag})}"></a></span>
-			</p>
-			<textarea name="recipeText" wrap="hard" cols="20"
-				style="white-space: pre-line" th:utext="${body}"
+	<div class="container padded-top">
+		<h1 class="center green" th:text="${name}"></h1>
+		<div>
+			<div style="margin-bottom: 15px;">
+				<div th:each="tag : ${tags}" style="display: inline-block; padding: 8px;">
+					<a class="border padded5 margin5 rounded no-wrap" th:text="${tag}"
+						th:href="@{/tags/{tag}(tag=${tag})}"></a>
+				</div>
+			</div>
+			<textarea name="recipeText" wrap="hard" th:utext="${body}"
 				class="form-control" form="recipeform" placeholder="Recipe Text"
 				rows="10" required="required"></textarea>
 			<div style="padding-top: 25px;">
