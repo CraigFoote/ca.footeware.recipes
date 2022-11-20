@@ -34,8 +34,8 @@ public class WebSecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable();
 		http
-//			.authorizeRequests()
-			.authorizeRequests().antMatchers("/**").permitAll()
+			.authorizeRequests()
+//			.authorizeRequests().antMatchers("/**").permitAll()
 			.antMatchers("/login*", "/error", "/", "/add", "/create", "/uploadImage", "/search", "/browse",
 					"/recipes/**", "/tags/**", "/resources/**", "/edit/**", "/delete/**")
 			.hasRole("ADMIN")
@@ -46,7 +46,7 @@ public class WebSecurityConfig {
 			.authenticated()
 			.and()
 			.formLogin()
-			.loginPage("/login.html")
+//			.loginPage("/login.html")
 			.defaultSuccessUrl("/", true)
 			.failureUrl("/login.html?error=true");
 		return http.build();
