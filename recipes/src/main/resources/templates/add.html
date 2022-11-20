@@ -27,53 +27,49 @@
 	</nav>
 	<div class="container padded-top">
 		<h1 class="center green">Add a Recipe</h1>
-		<div>
-			<div style="text-align: left;">
-				<span th:text="${message}" class="bold"></span>
-				<ol>
-					<li class="padded20">
-						<form method="POST" enctype="multipart/form-data"
-							action="/uploadImage">
-							<input type="hidden" th:name="pageName" value="add" />
-							<p>
-								Upload image(s) for recipe (optional).<br />Hold CTRL key to
-								select multiples.
-							</p>
-							<p>
-								<input type="file" name="files" multiple="multiple"
-									accept="image/png, image/jpeg, image/jpg, image/bmp" />
-							</p>
-							<p>
-								...and:&nbsp;<input type="submit" value="Upload" />
-							</p>
-							<p>Or just click Upload to clear any chosen images.</p>
-						</form>
-						<div th:each="encodedImage : ${encodedImages}">
-							<img
-								th:src="${'data:image/jpeg;charset=ascii;base64,' + encodedImage}"
-								width="100%" />
-						</div>
-					</li>
-					<form method="POST" action="/create" id="recipeform">
-						<input type="hidden" th:each="encodedImage : ${encodedImages}"
-							th:name="images" th:value="${encodedImage}" />
-						<li class="padded20"><input name="recipeName" type="text"
-							class="form-control" required="required"
-							placeholder="Recipe Name" /></li>
-						<li class="padded20"><textarea name="recipeText" wrap="hard"
-								cols="20" style="white-space: pre-line" class="form-control"
-								form="recipeform" placeholder="Recipe Text" rows="10"
-								required="required"></textarea></li>
-						<li class="padded20"><p>Add comma-separated descriptive
-								tags to help searching.</p> <input name="tags" type="text"
-							class="form-control" required="required"
-							placeholder="Comma-separated Tags, e.g. 'chocolate, cookies'" /></li>
-						<input class="center" type="submit" value="Save" />
+		<div style="text-align: left;">
+			<span th:text="${message}" class="bold"></span>
+			<ol>
+				<li class="padded20">
+					<form method="POST" enctype="multipart/form-data"
+						action="/uploadImage">
+						<input type="hidden" th:name="pageName" value="add" />
+						<p>
+							Upload image(s) for recipe (optional).<br />Hold CTRL key to
+							select multiples.
+						</p>
+						<p>
+							<input type="file" name="files" multiple="multiple"
+								accept="image/png, image/jpeg, image/jpg, image/bmp" />
+						</p>
+						<p>
+							...and:&nbsp;<input type="submit" value="Upload" />
+						</p>
+						<p>Or just click Upload to clear any chosen images.</p>
 					</form>
-				</ol>
-			</div>
+					<div th:each="encodedImage : ${encodedImages}">
+						<img
+							th:src="${'data:image/jpeg;charset=ascii;base64,' + encodedImage}"
+							width="100%" />
+					</div>
+				</li>
+				<form method="POST" action="/create" id="recipeform">
+					<input type="hidden" th:each="encodedImage : ${encodedImages}"
+						th:name="images" th:value="${encodedImage}" />
+					<li class="padded20"><input name="recipeName" type="text"
+						class="form-control" required="required" placeholder="Recipe Name" /></li>
+					<li class="padded20"><textarea name="recipeText" wrap="hard"
+							cols="20" style="white-space: pre-line" class="form-control"
+							form="recipeform" placeholder="Recipe Text" rows="10"
+							required="required"></textarea></li>
+					<li class="padded20"><p>Add comma-separated descriptive
+							tags to help searching.</p> <input name="tags" type="text"
+						class="form-control" required="required"
+						placeholder="Comma-separated Tags, e.g. 'chocolate, cookies'" /></li>
+					<input class="center" type="submit" value="Save" />
+				</form>
+			</ol>
 		</div>
 	</div>
-
 </body>
 </html>
