@@ -12,8 +12,7 @@ import ca.footeware.recipes.models.Recipe;
 import ca.footeware.recipes.repositories.RecipeRepository;
 
 /**
- * @author craig
- *
+ * @author Footeware.ca
  */
 @Service
 public class RecipeService {
@@ -22,29 +21,35 @@ public class RecipeService {
 	private RecipeRepository repository;
 
 	/**
-	 * @param id
+	 * @param id {@link Integer}
 	 */
 	public void delete(Integer id) {
 		repository.deleteById(id);
 	}
 
 	/**
-	 * @return
+	 * @return {@link Iterable} of {@link Recipe}
 	 */
 	public Iterable<Recipe> findAll() {
 		return repository.findAll();
 	}
 
+	/**
+	 * @return {@link Set} of {@link Recipe}
+	 */
 	public Set<Recipe> findByName(String term) {
 		return repository.findByNameContainingIgnoreCase(term);
 	}
 
+	/**
+	 * @return {@link Set} of {@link Recipe}
+	 */
 	public Set<Recipe> findByTag(String term) {
 		return repository.findByTagsContainingIgnoreCase(term);
 	}
 
 	/**
-	 * @param id
+	 * @param id {@link Integer}
 	 */
 	public Recipe get(Integer id) {
 		if (repository.findById(id).isPresent()) {
@@ -54,14 +59,17 @@ public class RecipeService {
 	}
 
 	/**
-	 * @param recipe
+	 * @param recipe {@link Recipe}
 	 */
 	public Recipe save(Recipe recipe) {
 		return repository.save(recipe);
 	}
 
+	/**
+	 * @param recipe {@link Recipe}
+	 * @return {@link Recipe}
+	 */
 	public Recipe update(Recipe recipe) {
 		return repository.save(recipe);
 	}
-
 }

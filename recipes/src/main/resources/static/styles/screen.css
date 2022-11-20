@@ -10,6 +10,10 @@
 	src: url(../fonts/ConeriaScript.ttf) format("truetype");
 }
 
+html, body {
+	height: 100%;
+}
+
 body {
 	font-family: "arial";
 	font-size: 24px;
@@ -72,7 +76,7 @@ h1 {
 }
 
 .green {
-	color: #476247;
+	color: #476247 !important;
 }
 
 .label {

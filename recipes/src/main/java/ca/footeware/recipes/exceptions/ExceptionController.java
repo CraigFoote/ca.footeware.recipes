@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 /**
- * @author craig
+ * Handles exceptions.
  *
+ * @author Footeware.ca
  */
 @ControllerAdvice
 public class ExceptionController {
@@ -45,6 +46,12 @@ public class ExceptionController {
 		return ERROR;
 	}
 
+	/**
+	 * Creates a "\n"-delimited string from stacktrace.
+	 *
+	 * @param stackTrace {@link StackTraceElement}
+	 * @return {@link String}
+	 */
 	private String extractTraces(StackTraceElement[] stackTrace) {
 		StringBuilder buffer = new StringBuilder();
 		for (StackTraceElement stackTraceElement : stackTrace) {

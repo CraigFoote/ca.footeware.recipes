@@ -11,7 +11,6 @@ import ca.footeware.recipes.models.Recipe;
 
 /**
  * @author Footeware.ca
- *
  */
 public interface RecipeRepository extends CrudRepository<Recipe, Integer> {
 

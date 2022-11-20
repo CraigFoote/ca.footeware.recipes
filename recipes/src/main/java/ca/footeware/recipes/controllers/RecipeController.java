@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
@@ -29,9 +30,9 @@ import ca.footeware.recipes.models.Recipe;
 import ca.footeware.recipes.services.RecipeService;
 
 /**
+ * Interacts with the recipe service.
  *
  * @author Footeware.ca
- *
  */
 @Controller
 public class RecipeController {
@@ -39,6 +40,12 @@ public class RecipeController {
 	@Autowired
 	private RecipeService recipeService;
 
+	/**
+	 * Removes extraneous characters from a String, creating ", "-delimiting.
+	 *
+	 * @param rawTags {@link String}
+	 * @return {@link String}
+	 */
 	private String cleanTags(String rawTags) {
 		String[] splitTags = rawTags.trim().split(",");
 		List<String> tagList = Arrays.asList(splitTags);
@@ -60,6 +67,16 @@ public class RecipeController {
 		return builder.toString();
 	}
 
+	/**
+	 * Create a recipe.
+	 *
+	 * @param images             {@link String}[]
+	 * @param recipeName         {@link String}[]
+	 * @param recipeText         {@link String}[]
+	 * @param tags               {@link String}[]
+	 * @param redirectAttributes {@link RedirectAttributes}
+	 * @return {@link String}
+	 */
 	@PostMapping("/create")
 	public String createRecipe(@RequestParam(required = false) String[] images, @RequestParam String recipeName,
 			@RequestParam String recipeText, @RequestParam String tags, RedirectAttributes redirectAttributes) {
@@ -81,12 +98,30 @@ public class RecipeController {
 		return "redirect:/add";
 	}
 
+	/**
+	 * Delete a recipe by id.
+	 *
+	 * @param id    {@link Integer}
+	 * @param model {@link Model}
+	 * @return {@link String}
+	 */
 	@DeleteMapping("/delete/{id}")
 	public String delete(@PathVariable Integer id, Model model) {
 		recipeService.delete(id);
 		return "search";
 	}
 
+	/**
+	 * Edit a recipe.
+	 *
+	 * @param id            {@link Integer}
+	 * @param recipeName    {@link String}
+	 * @param recipeText    {@link String}
+	 * @param tags          {@link String}
+	 * @param encodedImages {@link String}
+	 * @param model         {@link Model}
+	 * @return {@link String}
+	 */
 	@PostMapping("/edit")
 	public String editRecipe(@RequestParam Integer id, @RequestParam String recipeName, @RequestParam String recipeText,
 			@RequestParam String tags, String[] encodedImages, Model model) {
@@ -118,11 +153,22 @@ public class RecipeController {
 		return "recipe";
 	}
 
+	/**
+	 * Get the web page for adding a recipe.
+	 *
+	 * @return {@link String}
+	 */
 	@GetMapping("/add")
 	public String getAddRecipePage() {
 		return "add";
 	}
 
+	/**
+	 * Display all recipe names.
+	 *
+	 * @param model {@link Model}
+	 * @return {@link String}
+	 */
 	@GetMapping("/browse")
 	public String getBrowsePage(Model model) {
 		Iterable<Recipe> recipes = recipeService.findAll();
@@ -130,13 +176,22 @@ public class RecipeController {
 		for (Recipe recipe : recipes) {
 			recipeList.add(recipe);
 		}
-		recipeList.sort((o1, o2) -> o1.compareTo(o2));
-		Map<Integer, String> map = recipeList.stream().collect(Collectors.toMap(Recipe::getId, Recipe::getName));
-
+		recipeList.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
+		Map<Integer, String> map = new LinkedHashMap<>();
+		for (Recipe recipe : recipeList) {
+			map.put(recipe.getId(), recipe.getName());
+		}
 		model.addAttribute("recipes", map);
 		return "browse";
 	}
 
+	/**
+	 * Get the web page for editing a recipe.
+	 *
+	 * @param id    {@link Integer}
+	 * @param model {@link Model}
+	 * @return {@link String}
+	 */
 	@SuppressWarnings("unchecked")
 	@GetMapping("/edit/{id}")
 	public String getEditPage(@PathVariable Integer id, Model model) {
@@ -161,8 +216,35 @@ public class RecipeController {
 		return "/edit";
 	}
 
+	/**
+	 * Get the home web page.
+	 *
+	 * @return {@link String}
+	 */
+	@GetMapping("/")
+	public String getHomePage() {
+		return "index";
+	}
+
+	/**
+	 * Get the web page for logging in.
+	 *
+	 * @return {@link String}
+	 */
+	@GetMapping("/login")
+	public String getLoginPage() {
+		return "login";
+	}
+
+	/**
+	 * Get a recipe by id.
+	 *
+	 * @param id    {@link Integer}
+	 * @param model {@link Model}
+	 * @return {@link String}
+	 */
 	@GetMapping("/recipes/{id}")
-	public String getImages(@PathVariable Integer id, Model model) {
+	public String getRecipe(@PathVariable Integer id, Model model) {
 		Recipe recipe = recipeService.get(id);
 		String recipeBody = recipe.getBody();
 		String[] splitTags = recipe.getTags().split(", ");
@@ -177,6 +259,13 @@ public class RecipeController {
 		return "recipe";
 	}
 
+	/**
+	 * Search for recipes by tag name.
+	 *
+	 * @param tag   {@link String}
+	 * @param model {@link Model}
+	 * @return {@link String}
+	 */
 	@GetMapping("/tags/{tag}")
 	public String getRecipesByTag(@PathVariable String tag, Model model) {
 		Set<Recipe> recipesByTag = recipeService.findByTag(tag);
@@ -195,16 +284,23 @@ public class RecipeController {
 		return "search";
 	}
 
+	/**
+	 * Get the web page for searching.
+	 *
+	 * @return {@link String}
+	 */
 	@GetMapping("/search")
 	public String getSearchPage() {
 		return "search";
 	}
 
-	@GetMapping("/")
-	public String getSearchPage(Model model) throws IOException {
-		return "index";
-	}
-
+	/**
+	 * Search by name or tags.
+	 *
+	 * @param searchTerm         {@link String}
+	 * @param redirectAttributes {@link RedirectAttributes}
+	 * @return {@link String}
+	 */
 	@PostMapping("/search")
 	public String search(@RequestParam String searchTerm, RedirectAttributes redirectAttributes) {
 		Set<Recipe> recipes1 = recipeService.findByTag(searchTerm.trim());
@@ -226,6 +322,15 @@ public class RecipeController {
 		return "redirect:/search";
 	}
 
+	/**
+	 * Base64 encode and "\n"-delimit uploaded images.
+	 *
+	 * @param files              {@link MultipartFile}[]
+	 * @param pageName           {@link StringIndexOutOfBoundsException}
+	 * @param redirectAttributes {@link RedirectAttributes}
+	 * @return {@link String}
+	 * @throws IOException when computers take over
+	 */
 	@PostMapping("/uploadImage")
 	public RedirectView uploadImage(@RequestParam MultipartFile[] files, @RequestParam String pageName,
 			RedirectAttributes redirectAttributes) throws IOException {
@@ -244,5 +349,4 @@ public class RecipeController {
 		redirectView.setUrl(pageName);
 		return redirectView;
 	}
-
 }

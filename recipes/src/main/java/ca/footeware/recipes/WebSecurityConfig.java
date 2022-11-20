@@ -7,12 +7,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 /**
  * Specify the URLs to which the current user can access.
@@ -24,7 +26,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
 
 	/**
-	 * A bean that configures HTTP security.
+	 * Configures HTTP security.
 	 *
 	 * @param http {@link HttpSecurity}
 	 * @return {@link SecurityFilterChain}
@@ -35,20 +37,22 @@ public class WebSecurityConfig {
 		http.csrf().disable();
 		http
 			.authorizeRequests()
-//			.authorizeRequests().antMatchers("/**").permitAll()
-			.antMatchers("/login*", "/error", "/", "/add", "/create", "/uploadImage", "/search", "/browse",
-					"/recipes/**", "/tags/**", "/resources/**", "/edit/**", "/delete/**")
+			.antMatchers("/login*", "/resources/**", "/error")
+			.permitAll()
+			.antMatchers("/", "/login*", "/error", "/search", "/browse", "/recipes/**", "/tags/**",
+					"/resources/**", "/add", "/create", "/uploadImage", "/edit/**",	"/delete/**")
 			.hasRole("ADMIN")
-			.antMatchers("/login*", "/error", "/", "/add", "/create", "/uploadImage", "/search", "/browse",
-					"/recipes/**", "/tags/**", "/resources/**")
+			.antMatchers("/", "/login*", "/error", "/search", "/browse", "/recipes/**", "/tags/**",
+					"/resources/**")
 			.hasRole("USER")
 			.anyRequest()
 			.authenticated()
 			.and()
 			.formLogin()
-//			.loginPage("/login.html")
+			.loginPage("/login")
+			.permitAll()
 			.defaultSuccessUrl("/", true)
-			.failureUrl("/login.html?error=true");
+			.failureUrl("/login?error=true");
 		return http.build();
 	}
 
@@ -63,7 +67,7 @@ public class WebSecurityConfig {
 	}
 
 	/**
-	 * Username and password.
+	 * Username and password and roles.
 	 *
 	 * @return {@link InMemoryUserDetailsManager}
 	 */
@@ -71,9 +75,22 @@ public class WebSecurityConfig {
 	public InMemoryUserDetailsManager userDetailsService() {
 		UserDetails user = User.withUsername("foote").password(passwordEncoder().encode("Bogart1997")).roles("USER")
 				.build();
-		UserDetails admin = User.withUsername("admin").password(passwordEncoder().encode("admin"))
+		UserDetails admin = User.withUsername("admin").password(passwordEncoder().encode("admin234"))
 				.roles("USER", "ADMIN").build();
 		return new InMemoryUserDetailsManager(user, admin);
 	}
 
+	/**
+	 * Specify resources to allow without credentials.
+	 *
+	 * @return {@link WebSecurityCustomizer}
+	 */
+	@Bean
+	public WebSecurityCustomizer webSecurityCustomizer() {
+		StrictHttpFirewall firewall = new StrictHttpFirewall();
+		firewall.setAllowUrlEncodedPercent(true);
+		return web -> web.httpFirewall(firewall)
+				.ignoring()
+				.antMatchers("/styles/**", "/js/**", "/images/**", "/fonts/**", "/resources/**");
+	}
 }

@@ -9,8 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- * @author craig
+ * A cooking recipe.
  *
+ * @author Footeware.ca
  */
 @Entity
 public class Recipe implements Comparable<Recipe> {
