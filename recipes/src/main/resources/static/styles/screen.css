@@ -122,3 +122,7 @@ input {
 .no-wrap {
 	white-space: nowrap;
 }
+
+.padded-sides {
+	padding: 0 20px 0 20px;
+}

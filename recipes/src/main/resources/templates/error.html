@@ -5,10 +5,11 @@
 <head th:replace="fragments/head :: head"></head>
 <body>
 	<nav
-		class="navbar navbar-expand-sm fixed-top navbar-light bg-light nav-background nav-bottom">
+		class="navbar navbar-expand-md fixed-top navbar-light bg-light nav-background nav-bottom">
 		<div
 			class="container-fluid col-4 d-flex justify-content-center text-center no-wrap">
-			<div class="title green" style="color: #476247 !important">Annie Foote's Recipe Book</div>
+			<div class="title green" style="color: #476247 !important">Annie
+				Foote's Recipe Book</div>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
 				aria-controls="navbarNavAltMarkup" aria-expanded="false"
@@ -16,7 +17,7 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-				<div class="navbar-nav" style="padding-left: 25px;">
+				<div class="navbar-nav padded-sides">
 					<a href="/" class="nav-link">Home</a> <a href="/search"
 						class="nav-link">Search</a> <a href="/browse" class="nav-link">Browse</a>
 					<a sec:authorize="hasRole('ADMIN')" href="/add" class="nav-link">Add
@@ -26,7 +27,8 @@
 		</div>
 	</nav>
 	<div class="container padded-top">
-		<h1 class="center green" style="color: #476247">Oops! Burnt the Toast.</h1>
+		<h1 class="center green" style="color: #476247">Oops! Burnt the
+			Toast.</h1>
 		<div class="row">
 			<div class="col-sm-8" style="text-align: left;">
 				<div class="row-fluid pb-2">
