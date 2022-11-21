@@ -37,7 +37,7 @@
 			</div>
 			<textarea name="recipeText" wrap="hard" th:utext="${body}"
 				class="form-control" form="recipeform" placeholder="Recipe Text"
-				rows="10" required="required"></textarea>
+				rows="10" readonly="readonly"></textarea>
 			<div style="padding-top: 25px;">
 				<img th:each="encodedImage : ${encodedImages}"
 					th:src="${'data:image/jpeg;charset=ascii;base64,' + encodedImage}"
