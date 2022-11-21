@@ -28,7 +28,7 @@
 	</nav>
 	<div class="container padded-top">
 		<h1 class="center green">Search</h1>
-		<section class="col col-sm-12 center">
+		<div class="col col-sm-12 center">
 			<form action="/search" method="POST">
 				<div class="input-group">
 					<input type="search" placeholder="Search" name="searchTerm"
@@ -39,7 +39,8 @@
 					</div>
 				</div>
 			</form>
-		</section>
+		</div>
+		<br/>
 		<div th:if="${recipes}">
 			<p>
 				<br />
@@ -53,6 +54,16 @@
 						th:text="${mapEntry.value}"></span></a></li>
 			</ol>
 			<hr />
+		</div>
+		<div th:if="${tags}">
+			<div style="margin-bottom: 15px;">
+				<div th:each="tag : ${tags}"
+					style="display: inline-block; padding: 8px;">
+					<a class="border padded5 margin5 rounded no-wrap" th:text="${tag}"
+						th:href="@{/tags/{tag}(tag=${tag})}"></a>
+				</div>
+			</div>
+			<hr>
 		</div>
 	</div>
 </body>

@@ -6,7 +6,9 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -279,17 +281,44 @@ public class RecipeController {
 
 		model.addAttribute("searchTerm", tag);
 		model.addAttribute("recipes", recipeMap);
+		model.addAttribute("tags", getAllTags());
 		return "search";
 	}
 
 	/**
 	 * Get the web page for searching.
-	 *
+	 * 
+	 * @param model {@link Model}
 	 * @return {@link String}
 	 */
 	@GetMapping("/search")
-	public String getSearchPage() {
+	public String getSearchPage(Model model) {
+		Set<String> sortedTags = getAllTags();
+		model.addAttribute("tags", sortedTags);
 		return "search";
+	}
+
+	/**
+	 * Get the set of all tags.
+	 * 
+	 * @return {@link Set} of {@link String}
+	 */
+	private Set<String> getAllTags() {
+		Iterable<Recipe> recipes = recipeService.findAll();
+		Iterator<Recipe> iter = recipes.iterator();
+		List<String> tagList = new ArrayList<>();
+		while (iter.hasNext()) {
+			Recipe recipe = iter.next();
+			String tags = recipe.getTags();
+			String[] splitTags = tags.split(", ");
+			tagList.addAll(Arrays.asList(splitTags));
+		}
+		tagList.sort((o1, o2) -> o1.compareTo(o2));
+		Set<String> sortedTags = new LinkedHashSet<>();
+		for (String tag : tagList) {
+			sortedTags.add(tag);
+		}
+		return sortedTags;
 	}
 
 	/**
@@ -316,6 +345,7 @@ public class RecipeController {
 
 		redirectAttributes.addFlashAttribute("searchTerm", searchTerm);
 		redirectAttributes.addFlashAttribute("recipes", recipeMap);
+		redirectAttributes.addFlashAttribute("tags", getAllTags());
 
 		return "redirect:/search";
 	}
