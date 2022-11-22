@@ -30,4 +30,12 @@ public interface RecipeRepository extends CrudRepository<Recipe, Integer> {
 	 */
 	Set<Recipe> findByTagsContainingIgnoreCase(String term);
 
+	/**
+	 * Find all recipes with body matching provided search term.
+	 * 
+	 * @param term {@link String}
+	 * @return {@link Set} of {@link Recipe}
+	 */
+	Set<Recipe> findByBodyContainingIgnoreCase(String term);
+
 }

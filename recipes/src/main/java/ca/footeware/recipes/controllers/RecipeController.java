@@ -330,9 +330,12 @@ public class RecipeController {
 	 */
 	@PostMapping("/search")
 	public String search(@RequestParam String searchTerm, RedirectAttributes redirectAttributes) {
-		Set<Recipe> recipes1 = recipeService.findByTag(searchTerm.trim());
-		Set<Recipe> recipes2 = recipeService.findByName(searchTerm.trim());
+		String trimmed = searchTerm.trim();
+		Set<Recipe> recipes1 = recipeService.findByTag(trimmed);
+		Set<Recipe> recipes2 = recipeService.findByName(trimmed);
+		Set<Recipe> recipes3 = recipeService.findByBody(trimmed);
 		recipes1.addAll(recipes2);
+		recipes1.addAll(recipes3);
 
 		Comparator<Recipe> comparator = (o1, o2) -> o1.compareTo(o2);
 		List<Recipe> recipes = new ArrayList<>(recipes1);
@@ -343,7 +346,7 @@ public class RecipeController {
 			recipeMap.put(recipe.getId(), recipe.getName());
 		}
 
-		redirectAttributes.addFlashAttribute("searchTerm", searchTerm);
+		redirectAttributes.addFlashAttribute("searchTerm", trimmed);
 		redirectAttributes.addFlashAttribute("recipes", recipeMap);
 		redirectAttributes.addFlashAttribute("tags", getAllTags());
 

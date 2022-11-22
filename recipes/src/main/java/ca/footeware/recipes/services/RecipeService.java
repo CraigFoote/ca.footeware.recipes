@@ -72,4 +72,12 @@ public class RecipeService {
 	public Recipe update(Recipe recipe) {
 		return repository.save(recipe);
 	}
+
+	/**
+	 * @param searchTerm {@link String}
+	 * @return {@link Set} of {@link Recipe}
+	 */
+	public Set<Recipe> findByBody(String searchTerm) {
+		return repository.findByBodyContainingIgnoreCase(searchTerm);
+	}
 }
