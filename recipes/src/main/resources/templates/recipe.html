@@ -28,7 +28,7 @@
 	<div class="container padded-top">
 		<h1 class="center green" th:text="${name}"></h1>
 		<div>
-			<div style="margin-bottom: 15px;">
+			<div style="margin-bottom: 15px;" class="animate__animated animate__bounceInRight">
 				<div th:each="tag : ${tags}"
 					style="display: inline-block; padding: 8px;">
 					<a class="border padded5 margin5 rounded no-wrap" th:text="${tag}"
@@ -43,7 +43,6 @@
 					th:src="${'data:image/jpeg;charset=ascii;base64,' + encodedImage}"
 					alt="image" style="width: 100%" />
 			</div>
-			<!--  sec:authorize="hasRole('ADMIN')" -->
 			<div sec:authorize="hasRole('ADMIN')" style="text-align: right;">
 				<a th:href="@{/edit/{id}(id=${id})}" title="edit"><img
 					src="/images/edit.png" alt="edit" /></a> <img src="/images/delete.png"

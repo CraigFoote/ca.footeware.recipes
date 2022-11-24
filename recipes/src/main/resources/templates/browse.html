@@ -31,7 +31,8 @@
 		<div class="col col-sm-12 center">
 			<hr />
 			<ol>
-				<li th:each="mapEntry : ${recipes}" style="text-align: left"><a
+				<li th:each="mapEntry : ${recipes}"
+					class="animate__animated animate__fadeIn" style="text-align: left"><a
 					th:href="@{/recipes/{id}(id=${mapEntry.key})}"><span
 						th:text="${mapEntry.value}"></span></a></li>
 			</ol>
