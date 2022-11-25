@@ -39,7 +39,10 @@ public class RecipeController {
 
 	@Autowired
 	private RecipeService recipeService;
-
+	private static final String ENCODED_IMAGES = "encodedImages";
+	private static final String RECIPES = "recipes";
+	private static final String SEARCH = "search";
+	
 	/**
 	 * Removes extraneous characters from a String, creating ", "-delimiting.
 	 *
@@ -108,7 +111,7 @@ public class RecipeController {
 	@DeleteMapping("/delete/{id}")
 	public String delete(@PathVariable Integer id, Model model) {
 		recipeService.delete(id);
-		return "search";
+		return SEARCH;
 	}
 
 	/**
@@ -145,9 +148,9 @@ public class RecipeController {
 		model.addAttribute("body", updatedRecipe.getBody());
 		model.addAttribute("tags", updatedRecipe.getTags().split(", "));
 		if (updatedRecipe.getImages() != null) {
-			model.addAttribute("encodedImages", updatedRecipe.getImages().split("\n"));
+			model.addAttribute(ENCODED_IMAGES, updatedRecipe.getImages().split("\n"));
 		} else {
-			model.addAttribute("encodedImages", updatedRecipe.getImages());
+			model.addAttribute(ENCODED_IMAGES, updatedRecipe.getImages());
 		}
 
 		return "recipe";
@@ -181,7 +184,7 @@ public class RecipeController {
 		for (Recipe recipe : recipeList) {
 			map.put(recipe.getId(), recipe.getName());
 		}
-		model.addAttribute("recipes", map);
+		model.addAttribute(RECIPES, map);
 		return "browse";
 	}
 
@@ -202,17 +205,14 @@ public class RecipeController {
 		model.addAttribute("tags", recipe.getTags());
 
 		List<String> imagesList = null;
-		Object newImages = model.asMap().get("encodedImages");
-		if (newImages != null && newImages instanceof List<?>) {
-			List<?> images = (List<?>) newImages;
+		Object newImages = model.asMap().get(ENCODED_IMAGES);
+		if (newImages instanceof List<?> images) {
 			imagesList = (List<String>) images;
 		}
-		if (imagesList == null) {
-			if (recipe.getImages() != null && !recipe.getImages().isEmpty()) {
-				imagesList = Arrays.asList(recipe.getImages().split("\n"));
-			}
+		if (imagesList == null && recipe.getImages() != null && !(recipe.getImages().isEmpty())) {
+			imagesList = Arrays.asList(recipe.getImages().split("\n"));
 		}
-		model.addAttribute("encodedImages", imagesList);
+		model.addAttribute(ENCODED_IMAGES, imagesList);
 		return "edit";
 	}
 
@@ -250,7 +250,7 @@ public class RecipeController {
 		String[] splitTags = recipe.getTags().split(", ");
 		if (recipe.getImages() != null && !recipe.getImages().isEmpty()) {
 			String[] splitImages = recipe.getImages().split("\n");
-			model.addAttribute("encodedImages", splitImages);
+			model.addAttribute(ENCODED_IMAGES, splitImages);
 		}
 		model.addAttribute("id", recipe.getId());
 		model.addAttribute("name", recipe.getName());
@@ -280,9 +280,9 @@ public class RecipeController {
 		}
 
 		model.addAttribute("searchTerm", tag);
-		model.addAttribute("recipes", recipeMap);
+		model.addAttribute(RECIPES, recipeMap);
 		model.addAttribute("tags", getAllTags());
-		return "search";
+		return SEARCH;
 	}
 
 	/**
@@ -295,7 +295,7 @@ public class RecipeController {
 	public String getSearchPage(Model model) {
 		Set<String> sortedTags = getAllTags();
 		model.addAttribute("tags", sortedTags);
-		return "search";
+		return SEARCH;
 	}
 
 	/**
@@ -347,7 +347,7 @@ public class RecipeController {
 		}
 
 		redirectAttributes.addFlashAttribute("searchTerm", trimmed);
-		redirectAttributes.addFlashAttribute("recipes", recipeMap);
+		redirectAttributes.addFlashAttribute(RECIPES, recipeMap);
 		redirectAttributes.addFlashAttribute("tags", getAllTags());
 
 		return "redirect:/search";
@@ -374,7 +374,7 @@ public class RecipeController {
 				encodedImages.add(encodedString);
 			}
 		}
-		redirectAttributes.addFlashAttribute("encodedImages", encodedImages);
+		redirectAttributes.addFlashAttribute(ENCODED_IMAGES, encodedImages);
 		RedirectView redirectView = new RedirectView();
 		redirectView.setContextRelative(true);
 		redirectView.setUrl(pageName);

@@ -3,10 +3,12 @@
  */
 package ca.footeware.recipes.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.Objects;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 /**
  * A cooking recipe.
@@ -73,5 +75,23 @@ public class Recipe implements Comparable<Recipe> {
 
 	public void setTags(String tags) {
 		this.tags = tags;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(body, id, images, name, tags);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Recipe other = (Recipe) obj;
+		return Objects.equals(body, other.body) && id == other.id && Objects.equals(images, other.images)
+				&& Objects.equals(name, other.name) && Objects.equals(tags, other.tags);
 	}
 }

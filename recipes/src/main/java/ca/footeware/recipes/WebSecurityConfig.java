@@ -35,16 +35,14 @@ public class WebSecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable();
-		http
-			.authorizeRequests()
-			.antMatchers("/login*", "/resources/**", "/error")
+		http.authorizeHttpRequests()
+			.requestMatchers("/styles/**", "/js/**", "/images/**", "/fonts/**")
 			.permitAll()
-			.antMatchers("/", "/login*", "/error", "/search", "/browse", "/recipes/**", "/tags/**",
-					"/resources/**", "/add", "/create", "/uploadImage", "/edit/**",	"/delete/**")
-			.hasRole("ADMIN")
-			.antMatchers("/", "/login*", "/error", "/search", "/browse", "/recipes/**", "/tags/**",
-					"/resources/**")
+			.requestMatchers("/", "/login*", "error", "/search", "/browse", "/recipes/**", "/tags/**")
 			.hasRole("USER")
+			.requestMatchers("/", "/login*", "error", "/search", "/browse", "/recipes/**", "/tags/**", 
+					"/add", "/create", "/uploadImage", "/edit/**", "/delete/**")
+			.hasRole("ADMIN")
 			.anyRequest()
 			.authenticated()
 			.and()
@@ -89,8 +87,6 @@ public class WebSecurityConfig {
 	public WebSecurityCustomizer webSecurityCustomizer() {
 		StrictHttpFirewall firewall = new StrictHttpFirewall();
 		firewall.setAllowUrlEncodedPercent(true);
-		return web -> web.httpFirewall(firewall)
-				.ignoring()
-				.antMatchers("/styles/**", "/js/**", "/images/**", "/fonts/**", "/resources/**");
+		return web -> web.httpFirewall(firewall);
 	}
 }
