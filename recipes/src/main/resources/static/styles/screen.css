@@ -17,7 +17,7 @@ html, body {
 body {
 	font-family: "arial";
 	font-size: 24px;
-	background-color: #a5bfa5 !important;
+	background-image: url("/images/background.jpg");
 }
 
 .title {
@@ -108,7 +108,7 @@ nav a:focus {
 textarea {
 	white-space: pre-line;
 	font-size: x-large !important;
-	overflow-y:scroll;
+	overflow-y: scroll;
 }
 
 input {

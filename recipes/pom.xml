@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>ca.footeware</groupId>
 	<artifactId>recipes</artifactId>
-	<version>1.5.0-SNAPSHOT</version>
+	<version>1.6.0-SNAPSHOT</version>
 	<name>recipes</name>
 	<description>Recipes!</description>
 	<properties>
