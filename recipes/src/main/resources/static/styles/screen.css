@@ -126,3 +126,7 @@ input {
 .padded-sides {
 	padding: 0 20px 0 20px;
 }
+
+img.link {
+	cursor: pointer;
+}
